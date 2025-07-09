@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全世界最好的宝宝</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+        
+        body {
+            font-family: 'Ma Shan Zheng', cursive;
+            background: linear-gradient(135deg, #fff5f5 0%, #f0f9ff 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #5a3d2b;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #ffd6e7;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 25px;
+            font-size: 32px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #ff6b6b, #ffb8b8, transparent);
+        }
+
+        /* 新增封面样式 */
+        .cover {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #fff9f9 0%, #f5fcff 100%);
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 2px dashed #ff9e9e;
+            animation: fadeIn 1s;
+        }
+        .cover h2 {
+            color: #ff6b6b;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .cover p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .hand-pointer {
+            font-size: 36px;
+            animation: bounce 2s infinite;
+            margin: 10px 0;
+            color: #ff8e8e;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-7px);}
+        }
+
+        .stars-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .star {
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            transform: rotate(0deg);
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+            position: relative;
+            user-select: none;
+            background: rgba(255,255,255,0.7);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ffb8b8;
+        }
+
+        .star:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .star.active {
+            color: gold;
+            text-shadow: 0 0 15px gold;
+            transform: scale(1.2) rotate(15deg);
+            background: rgba(255,241,118,0.3);
+        }
+
+        .message-box {
+            background-color: #fff9f9;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed #ffb8b8;
+            display: none;
+            animation: fadeIn 0.5s;
+            position: relative;
+            overflow: hidden;
+            font-size: 18px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 各星星专属样式 */
+        #message-1 {
+            background-color: #f8f4ff;
+            border-color: #c4a1ff;
+        }
+        #message-2 {
+            background-color: #fff0f0;
+            border-color: #ff9e9e;
+        }
+
+        .gif-container {
+            margin: 15px auto;
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .gif-container img {
+            width: 150px;
+            border-radius: 10px;
+            border: 3px solid #ffb8b8;
+            display: block;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .image-pair {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .image-pair img {
+            width: 120px;
+            border-radius: 10px;
+            border: 3px solid #ffb8b8;
+        }
+
+        /* 背景浮动猫爪 */
+        .bg-paw {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 15Q30 40 20 30Q10 20 25 10Q40 0 50 15zM50 15Q70 40 80 30Q90 20 75 10Q60 0 50 15z" fill="%23ffd6e7" opacity="0.3"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1;
+            animation: floatPaw 20s infinite linear;
+        }
+
+        @keyframes floatPaw {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translate(100px, 100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景浮动猫爪 -->
+    <div class="bg-paw" style="top:10%; left:5%; animation-delay:0s;"></div>
+    <div class="bg-paw" style="top:30%; left:80%; animation-delay:3s;"></div>
+    <div class="bg-paw" style="top:70%; left:15%; animation-delay:5s;"></div>
+    <div class="bg-paw" style="top:85%; left:70%; animation-delay:7s;"></div>
+
+    <div class="container">
+        <h1>🎉 恭喜小猫去冰为高二的学习画下完美的句号 🎉</h1>
+        
+        <!-- 新增封面引导页 -->
+        <div id="cover" class="cover">
+            <h2>✨ 欢迎来到小猫的魔法星空 ✨</h2>
+            <p>这里有五颗闪耀的星星，每颗都藏着特别的惊喜~</p>
+            <p>请宝宝<b>依次点击星星</b>，开启你的专属星光旅程！</p>
+        </div>
+        
+        <div class="stars-container">
+            <div class="star" onclick="showMessage(1)">⭐</div>
+            <div class="star" onclick="showMessage(2)">⭐</div>
+            <div class="star" onclick="showMessage(3)">⭐</div>
+            <div class="star" onclick="showMessage(4)">⭐</div>
+            <div class="star" onclick="showMessage(5)">⭐</div>
+        </div>
+        
+        <!-- 第一颗星星内容 -->
+        <div id="message-1" class="message-box">
+            <p>📚 第一：期末考卷封印完成！</p>
+            <div class="gif-container">
+                <img src="https://cdn.jsdelivr.net/gh/yulu1107/gifs@main/xiaohai.gif" 
+                     alt="小女孩动图"
+                     onerror="this.src='https://cdn.jsdelivr.net/gh/yulu1107/gifs@main/xiaohai.gif?retry='+Date.now()">
+            </div>
+            <p><small>小女孩用记忆之书把烦恼都锁起来啦~</small></p>
+        </div>
+        
+        <!-- 第二颗星星内容 -->
+        <div id="message-2" class="message-box">
+            <p>🍹 第二：薄荷特饮补给</p>
+            <div class="gif-container">
+                <img src="https://cdn.jsdelivr.net/gh/yulu1107/gifs@da12623f9dfd666d1b94bacacf28df7bdc105876/6.jpeg" 
+                     alt="特饮图片"
+                     onerror="this.src='https://cdn.jsdelivr.net/gh/yulu1107/gifs@da12623f9dfd666d1b94bacacf28df7bdc105876/6.jpeg?retry='+Date.now()">
+            </div>
+            <p>🧊 小猫特调，清凉一夏~</p>
+        </div>
+        
+        <!-- 第三颗星星内容 -->
+        <div id="message-3" class="message-box">
+            <p>❤️ 第三：宝宝在我心里宇宙无敌第一棒！！！</p>
+            <div class="image-pair">
+                <img src="https://cdn.jsdelivr.net/gh/yulu1107/gifs@ed40c1bb529a292acd270ede6d9a0357fd4f7a01/2.png" 
+                     alt="左边图片"
+                     onerror="this.src='https://cdn.jsdelivr.net/gh/yulu1107/gifs@ed40c1bb529a292acd270ede6d9a0357fd4f7a01/2.png?retry='+Date.now()">
+                <img src="https://cdn.jsdelivr.net/gh/yulu1107/gifs@ed40c1bb529a292acd270ede6d9a0357fd4f7a01/3.png" 
+                     alt="右边图片"
+                     onerror="this.src='https://cdn.jsdelivr.net/gh/yulu1107/gifs@ed40c1bb529a292acd270ede6d9a0357fd4f7a01/3.png?retry='+Date.now()">
+             </div>
+            <p> ദ്ദി˶˃ ᵕ ˂ )✧ </p>
+                    </div>
+        </div>
+        
+        <!-- 第四颗星星内容 -->
+        <div id="message-4" class="message-box">
+            <p>🌞 第四：暑假模式启动！</p>
+            <div class="gif-container">
+                <img src="https://cdn.jsdelivr.net/gh/yulu1107/gifs@ed40c1bb529a292acd270ede6d9a0357fd4f7a01/1.gif" 
+                     alt="暑假动图"
+                     onerror="this.src='https://cdn.jsdelivr.net/gh/yulu1107/gifs@ed40c1bb529a292acd270ede6d9a0357fd4f7a01/1.gif?retry='+Date.now()">
+            </div>
+            <p>🏖️ 阳光、沙滩和游戏都在等你！</p>
+        </div>
+        
+<div id="message-5" class="message-box" style="text-align: center;">
+    <p style="margin: 10px auto; width: 100%;">🎮 第五：人格启动！</p>
+    <div class="gif-container" style="margin: 0 auto;">
+        <img src="https://cdn.jsdelivr.net/gh/yulu1107/gifs@ed40c1bb529a292acd270ede6d9a0357fd4f7a01/4.gif" 
+             alt="游戏动图"
+             style="display: block; margin: 0 auto;"
+             onerror="this.src='https://cdn.jsdelivr.net/gh/yulu1107/gifs@ed40c1bb529a292acd270ede6d9a0357fd4f7a01/4.gif?retry='+Date.now()">
+    </div>
+    <p style="margin: 8px auto; width: 100%;">⚡ 随时准备在欧利蒂丝庄园大杀四方~</p>
+    <p style="margin: 8px auto; width: 100%;">⚡ 祝宝宝未来如星璀璨，如风自由~</p>
+    <p style="margin: 8px auto; width: 100%;">✨ ໒꒰ྀི ๑ᵔ ᵕ ᵔ๑ ꒱ྀིა ✨</p>
+</div>
+
+    <script>
+        // 显示对应的星星消息
+        function showMessage(starNum) {
+            // 首次点击时隐藏封面
+            const cover = document.getElementById('cover');
+            if (cover && cover.style.display !== 'none') {
+                cover.style.display = 'none';
+            }
+            
+            // 隐藏所有消息框
+            document.querySelectorAll('.message-box').forEach(box => {
+                box.style.display = 'none';
+            });
+            
+            // 激活当前星星
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => star.classList.remove('active'));
+            stars[starNum-1].classList.add('active');
+            
+            // 显示对应消息
+            const messageBox = document.getElementById(`message-${starNum}`);
+            if (messageBox) {
+                messageBox.style.display = 'block';
+            }
+        }
+
+        // 页面加载时不自动显示任何内容
+        window.onload = function() {
+            // 确保所有消息框初始隐藏
+            document.querySelectorAll('.message-box').forEach(box => {
+                box.style.display = 'none';
+            });
+            
+            // 图片加载备用方案
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                const originalSrc = img.src;
+                img.onerror = function() {
+                    if (originalSrc.includes('cdn.jsdelivr.net')) {
+                        const rawSrc = originalSrc.replace('cdn.jsdelivr.net/gh', 'raw.githubusercontent.com');
+                        this.src = rawSrc + '?retry=' + Date.now();
+                    }
+                };
+            });
+        };
+    </script>
+</body>
+</html>
